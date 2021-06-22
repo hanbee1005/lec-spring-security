@@ -50,4 +50,8 @@ public class Account {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public void encodePassword() {
+        password = "{noop}" + password;
+    }
 }

@@ -33,7 +33,8 @@ public class AccountService implements UserDetailsService {
                 .build();
     }
 
-    public Account save(Account account) {
+    public Account createNew(Account account) {
+        account.encodePassword();
         return accountRepository.save(account);
     }
 }
