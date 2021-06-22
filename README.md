@@ -13,6 +13,17 @@
 implementation 'org.springframework.boot:spring-boot-starter-security'
 ```
 
-다시 애플리케이션을 실행하고 접근하는 경우 자동으로 로그인 페이지로 이동하게 되며, 기본적으로 Username은 user, Password는 console 창에서 확인 가능   
+스프링 시큐리티 의존성을 추가하고 나면
+- 모든 요청은 인증을 필요로 하게 되고
+- 기본 유저가 생성됩니다.
+    + Username: user
+    + Password: 콘솔에 출력된 문자열 확인
+    
+해결된 문제
+- 인증을 할 수 있다.
+- 현재 사용자 정보를 알 수 있다.
 
-But, 관리자 화면에 대한 권한 확인은 이루어지지 않은 상태...
+새로운 문제
+- 인증없이 접근 가능한 URL을 설정하고 싶다.
+- 애플리케이션을 사용할 수 있는 유저 계정이 user 하나 뿐이다.
+- 비밀번호가 로그에 남는다.
