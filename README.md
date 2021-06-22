@@ -63,3 +63,48 @@ protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 ```
 USER 권한을 가진 keesun이라는 사용자와 ADMIN 권한을 가진 admin 사용자 추가     
 password 저장 시 "{암호화_방식}암호화할_문자열" 을 사용하는데 {noop}은 암호화를 하지 않는다는 의미
+
+## JPA 연동
+1. spring-data-jpa 및 h2 데이터베이스 의존 추가
+```
+implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+runtimeOnly 'com.h2database:h2'
+```
+
+2. account entity 생성
+   
+3. repository 인터페이스 생성
+
+4. service 생성하고 UserDetailsService 구현
+```java
+@Service
+@Transactional
+public class AccountService implements UserDetailsService {
+
+    private final AccountRepository accountRepository;
+
+    public AccountService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Account account = accountRepository.findByUsername(username);
+        if (account == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        return User.builder()
+                .username(account.getUsername())
+                .password(account.getPassword())
+                .roles(account.getRole())
+                .build();
+    }
+
+    ...
+}
+```
+
+5. 회원가입을 위한 controller 매핑 추가
+
+6. spring security에서 받아들이는 패스워드 형식에 맞게 임시 인코딩 기능 추가
