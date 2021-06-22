@@ -33,7 +33,7 @@ class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "keesun", roles = "USER")
+    @WithUser
     public void index_user() throws Exception {
         // keesun 이라는 user로 인증이 되어 있다고 생각하고 진행
         mockMvc.perform(get("/"))
@@ -42,7 +42,7 @@ class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "keesun", roles = "USER")
+    @WithUser
     public void admin_user() throws Exception {
         mockMvc.perform(get("/admin"))
                 .andDo(print())
