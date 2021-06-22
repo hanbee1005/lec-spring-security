@@ -123,3 +123,10 @@ public void encodePassword(PasswordEncoder passwordEncoder) {
 }
 ```
 
+## 스프링 시큐리티 테스트
+```
+testImplementation 'org.springframework.security:spring-security-test'
+```
+
+- 의존을 추가한 뒤 테스트 코드 작성
+- MockMvc 사용
