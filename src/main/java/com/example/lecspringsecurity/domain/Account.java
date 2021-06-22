@@ -1,5 +1,7 @@
 package com.example.lecspringsecurity.domain;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,7 +53,7 @@ public class Account {
         this.role = role;
     }
 
-    public void encodePassword() {
-        password = "{noop}" + password;
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        password = passwordEncoder.encode(password);
     }
 }
