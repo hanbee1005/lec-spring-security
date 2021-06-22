@@ -32,4 +32,8 @@ public class AccountService implements UserDetailsService {
                 .roles(account.getRole())
                 .build();
     }
+
+    public Account save(Account account) {
+        return accountRepository.save(account);
+    }
 }
