@@ -27,3 +27,28 @@ implementation 'org.springframework.boot:spring-boot-starter-security'
 - 인증없이 접근 가능한 URL을 설정하고 싶다.
 - 애플리케이션을 사용할 수 있는 유저 계정이 user 하나 뿐이다.
 - 비밀번호가 로그에 남는다.
+
+## 스프링 시큐리티 설정
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+            .mvcMatchers("/", "/info").permitAll()   // /, /info 요청에 대해서는 모두 허용
+            .mvcMatchers("/admin").hasRole("ADMIN")  // /admin 요청에 대해서는 Role이 ADMIN인 사용자만 허용
+            .anyRequest().authenticated()            // 그 외 다른 요청에 대해서는 인증(로그인 여부)만 확인
+            .and()
+            .formLogin()  // 제공되는 formLogin 기능 사용 설정
+            .and()
+            .httpBasic();  // 제공되는 httpBasic 기능 사용 설정
+  }
+}
+```
+
+해결된 문제
+- url 별로 어떤 요청을 어떤 식으로 받아서 처리할지 설정
+  + 인증없이 접근 가능한 URL을 설정 가능
+  
