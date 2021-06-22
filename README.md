@@ -110,3 +110,16 @@ public class AccountService implements UserDetailsService {
 6. spring security에서 받아들이는 패스워드 형식에 맞게 임시 인코딩 기능 추가
 
 ## 스프링 시큐리티 PasswordEncoder
+```java
+@Bean
+public PasswordEncoder passwordEncoder() {
+    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+}
+```
+위와 같이 사용할 PasswordEncoder를 빈 등록 후 아래와 같이 사용
+```java
+public void encodePassword(PasswordEncoder passwordEncoder) {
+    password = passwordEncoder.encode(password);
+}
+```
+
