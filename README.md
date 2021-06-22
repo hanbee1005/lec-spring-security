@@ -52,3 +52,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 - url 별로 어떤 요청을 어떤 식으로 받아서 처리할지 설정
   + 인증없이 접근 가능한 URL을 설정 가능
   
+## 스프링 시큐리티 인메모리 유저 추가
+```java
+@Override
+protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth.inMemoryAuthentication()
+            .withUser("keesun").password("{noop}123").roles("USER").and()
+            .withUser("admin").password("{noop}!@#").roles("ADMIN");
+}
+```
+USER 권한을 가진 keesun이라는 사용자와 ADMIN 권한을 가진 admin 사용자 추가     
+password 저장 시 "{암호화_방식}암호화할_문자열" 을 사용하는데 {noop}은 암호화를 하지 않는다는 의미
